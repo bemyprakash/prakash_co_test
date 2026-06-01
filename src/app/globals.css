@@ -1,26 +1,296 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&display=swap");
 @import "tailwindcss";
 
+/* ── CSS Custom Properties ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-playfair: "Playfair Display", Georgia, serif;
+  --font-inter: "Inter", system-ui, sans-serif;
+  --font-cormorant: "Cormorant Garamond", Georgia, serif;
+
+  /* Brand Colors */
+  --brand-primary: #0a9b4b;
+  --brand-deep: #06753a;
+  --brand-light: #eaf8f0;
+  --cream: #faf8f2;
+  --charcoal: #1e1e1e;
+  --gold: #c9a24a;
+  --gold-light: #e8c97a;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --border-heritage: rgba(10, 155, 75, 0.2);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ── Base Styles ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter);
+  color: var(--charcoal);
+  background-color: #ffffff;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair);
+  color: var(--charcoal);
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.font-heritage {
+  font-family: var(--font-cormorant);
+}
+
+/* ── Heritage Selection Color ── */
+::selection {
+  background-color: var(--brand-light);
+  color: var(--brand-deep);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--brand-primary);
+  border-radius: 3px;
+}
+
+/* ── Focus Ring ── */
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ── Heritage Divider ── */
+.heritage-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+.heritage-divider::before,
+.heritage-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--gold),
+    transparent
+  );
+}
+
+/* ── Utility Classes ── */
+.bg-cream       { background-color: var(--cream); }
+.bg-brand       { background-color: var(--brand-primary); }
+.bg-brand-deep  { background-color: var(--brand-deep); }
+.bg-brand-light { background-color: var(--brand-light); }
+.text-brand     { color: var(--brand-primary); }
+.text-gold      { color: var(--gold); }
+.text-muted     { color: var(--muted); }
+.border-brand   { border-color: var(--brand-primary); }
+.border-gold    { border-color: var(--gold); }
+
+/* ── Buttons ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background-color: var(--brand-primary);
+  color: white;
+  font-family: var(--font-inter);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+.btn-primary:hover {
+  background-color: var(--brand-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(10, 155, 75, 0.25);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background-color: transparent;
+  color: var(--brand-primary);
+  font-family: var(--font-inter);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--brand-primary);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.btn-secondary:hover {
+  background-color: var(--brand-primary);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(10, 155, 75, 0.15);
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background-color: var(--gold);
+  color: white;
+  font-family: var(--font-inter);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.btn-gold:hover {
+  background-color: var(--gold-dark, #a07830);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(201, 162, 74, 0.3);
+}
+
+.card-heritage {
+  background: white;
+  border: 1px solid rgba(10, 155, 75, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-heritage:hover {
+  box-shadow: 0 12px 32px rgba(10, 155, 75, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ── Section Spacing ── */
+.section-padding {
+  padding: 5rem 0;
+}
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 3.5rem 0;
+  }
+}
+
+.container-heritage {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+@media (min-width: 1024px) {
+  .container-heritage {
+    padding: 0 2.5rem;
+  }
+}
+
+/* ── Badge ── */
+.badge-heritage {
+  display: inline-block;
+  padding: 0.25rem 0.875rem;
+  background-color: var(--brand-light);
+  color: var(--brand-deep);
+  font-family: var(--font-cormorant);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 8px;
+}
+
+/* ── Image Overlay ── */
+.img-heritage {
+  position: relative;
+  overflow: hidden;
+}
+.img-heritage img {
+  transition: transform 0.6s ease;
+}
+.img-heritage:hover img {
+  transform: scale(1.04);
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-up   { animation: fadeUp 0.7s ease-out forwards; }
+.animate-fade-in   { animation: fadeIn 0.5s ease-out forwards; }
+.animate-slide-in  { animation: slideInLeft 0.6s ease-out forwards; }
+
+/* ── Form Inputs ── */
+.input-heritage {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-inter);
+  font-size: 0.9375rem;
+  color: var(--charcoal);
+  background: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+.input-heritage:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 4px rgba(10, 155, 75, 0.1);
+}
+.input-heritage::placeholder {
+  color: #9ca3af;
+}
+
+/* ── Toast / Sonner overrides ── */
+[data-sonner-toast] {
+  font-family: var(--font-inter) !important;
+}
+
+/* ── Print Styles (for packing slips) ── */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; }
 }
